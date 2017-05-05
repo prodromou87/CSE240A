@@ -45,6 +45,7 @@ extern int ghistoryBits; // Number of bits used for Global History
 extern int lhistoryBits; // Number of bits used for Local History
 extern int pcIndexBits;  // Number of bits used for PC index
 extern int bpType;       // Branch Prediction Type
+extern int verbose;
 
 //------------------------------------//
 //    Predictor Function Prototypes   //

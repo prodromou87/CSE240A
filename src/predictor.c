@@ -27,6 +27,7 @@ int ghistoryBits; // Number of bits used for Global History
 int lhistoryBits; // Number of bits used for Local History
 int pcIndexBits;  // Number of bits used for PC index
 int bpType;       // Branch Prediction Type
+int verbose;
 
 //------------------------------------//
 //      Predictor Data Structures     //

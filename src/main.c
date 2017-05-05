@@ -23,6 +23,7 @@ usage()
   fprintf(stderr,"       bunzip -kc trace.bz2 | predictor <options>\n");
   fprintf(stderr," Options:\n");
   fprintf(stderr," --help       Print this message\n");
+  fprintf(stderr," --verbose    Print predictions on stdout\n");
   fprintf(stderr," --<type>     Branch prediction scheme:\n");
   fprintf(stderr,"    static\n"
                  "    gshare:<# ghistory>\n"
@@ -48,6 +49,8 @@ handle_option(char *arg)
     sscanf(arg+13,"%d:%d:%d", &ghistoryBits, &lhistoryBits, &pcIndexBits);
   } else if (!strcmp(arg,"--custom")) {
     bpType = CUSTOM;
+  } else if (!strcmp(arg,"--verbose")) {
+    verbose = 1;
   } else {
     return 0;
   }
@@ -80,6 +83,7 @@ main(int argc, char *argv[])
   // Set defaults
   stream = stdin;
   bpType = STATIC;
+  verbose = 0;
 
   // Process cmdline Arguments
   for (int i = 1; i < argc; ++i) {
@@ -111,8 +115,12 @@ main(int argc, char *argv[])
     num_branches++;
 
     // Make a prediction and compare with actual outcome
-    if (make_prediction(pc) != outcome) {
+    uint8_t prediction = make_prediction(pc);
+    if (prediction != outcome) {
       mispredictions++;
+    }
+    if (verbose != 0) {
+      printf ("%d\n", prediction);
     }
 
     // Train the predictor
