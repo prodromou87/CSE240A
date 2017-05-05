@@ -20,7 +20,7 @@ const char *email       = "EMAIL";
 //------------------------------------//
 
 // Handy Global for use in output routines
-const char *bpName[5] = { "Static", "Gshare", "Local",
+const char *bpName[4] = { "Static", "Gshare",
                           "Tournament", "Custom" };
 
 int ghistoryBits; // Number of bits used for Global History
@@ -67,7 +67,6 @@ make_prediction(uint32_t pc)
     case STATIC:
       return TAKEN;
     case GSHARE:
-    case LOCAL:
     case TOURNAMENT:
     case CUSTOM:
     default:

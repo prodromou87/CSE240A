@@ -26,7 +26,6 @@ usage()
   fprintf(stderr," --<type>     Branch prediction scheme:\n");
   fprintf(stderr,"    static\n"
                  "    gshare:<# ghistory>\n"
-                 "    local:<# lhistory>:<# index>\n"
                  "    tournament:<# ghistory>:<# lhistory>:<# index>\n"
                  "    custom\n");
 }
@@ -44,9 +43,6 @@ handle_option(char *arg)
   } else if (!strncmp(arg,"--gshare:",9)) {
     bpType = GSHARE;
     sscanf(arg+9,"%d", &ghistoryBits);
-  } else if (!strncmp(arg,"--local:",8)) {
-    bpType = LOCAL;
-    sscanf(arg+8,"%d:%d", &lhistoryBits, &pcIndexBits);
   } else if (!strncmp(arg,"--tournament:",13)) {
     bpType = TOURNAMENT;
     sscanf(arg+13,"%d:%d:%d", &ghistoryBits, &lhistoryBits, &pcIndexBits);
