@@ -9,11 +9,11 @@
   * [Running your predictor](#running-your-predictor)
   * [Implementing the predictors](#implementing-the-predictors)
     - [Gshare](#gshare)
-    - [Local](#local)
     - [Tournament](#tournament)
     - [Custom](#custom)
     - [Things to note](#things-to-note)
   * [Grading](#grading)
+    - [Grading the custom predictor](#grading-the-custom-predictor)
   * [Turn-in Instructions](#turn-in-instructions)
 
 ## Introduction
@@ -34,7 +34,7 @@ Alternatively, you can download it from [our github page](https://github.com/pro
 
 You have the option to write your project in C, C++ or Python. We only provide a framework written in C and we strongly recommend you use it, primarily to ensure compatibility with our autograder. 
 
-If you decide to use some of the other supported languages, you will have to implement everything. You also have to make sure that running `make` in the src directory generates an executable named 'predictor'. During grading, our script will run a `make clean`, followed by a `make` command. Make sure that this step is not going to delete your code, especially if you are writing it in Python. Finally, make sure that your project runs with the exact same commands as this document describes. Python submissions must run with `./predictor`, without requiring `python ./predictor`.
+If you decide to use some of the other supported languages, you will have to implement everything. You also have to make sure that running `make` in the src directory generates an executable named 'predictor'. During grading, our script will run a `make clean`, followed by a `make` command. Make sure that this step is not going to delete your code, especially if you are writing it in Python. Finally, make sure that your project runs with the exact same commands as this document describes. Python submissions must run with `./predictor`, without requiring `python ./predictor`. You can submit a custom Makefile to serve the needs of your code.
 
 ## Working with Docker
 
@@ -161,7 +161,7 @@ You will be implementing the Tournament Predictor popularized by the Alpha 21264
 
 #### Custom
 
-Now that you have implemented 3 other predictors with rigid requirements, you now have the opportunity to be creative and design your own predictor.  The only requirement is that the total size of your custom predictor must not exceed (64K + 256) bits (not bytes) of stored data and that your custom predictor must outperform both the Gshare and Tournament predictors (details below).
+Now that you have implemented 3 other predictors with rigid requirements, you now have the opportunity to be creative and design your own predictor.  The only requirement is that the total size of your custom predictor must not exceed (16K + 256) bits (not bytes) of stored data and that your custom predictor must outperform both the Gshare and Tournament predictors (details below).
 
 #### Things to note
 
@@ -188,15 +188,23 @@ The Choice Predictor used to select which predictor to use in the Alpha 21264 To
 
 All grading will be done with respect to your predictor's Misprediciton Rate, as well as its correctness (for Gshare and Tournament) compared to our implementation. 
 
-You get 10 points for correctness. If your predictions match the correct output, you get full points. You get 30 points if your custom predictor beats one of the other two, and +10 points (40 total) if you beat both of them.
+You get 10 points for correctness of the gshare and tournament predictors (20 points max grade for correctness). If your predictions match the correct output, you get full points. You get 15 points if your custom predictor beats one of the other two (gshare and tournament), and +15 points (30 total) if you beat both of them.
 
-Finally, the 10 best predictors (in terms of misprediction rate), will receive extra points. First place gets 10 points, second place gets 9, third gets 8 and so on. **The maximum grade is 60. If your custom predictor does not rank in the top 10, the maximum score you can get is 50/60.**
+Finally, the 6 best custom predictors (in terms of misprediction rate), will receive extra points. First place gets 6 points, second place gets 5, third gets 4 and so on. **The maximum grade is 56. If your custom predictor does not rank in the top 6, the maximum score you can get is 50/56.** 
+
+If you are ranked in the top 6, we need a clear description (in comments in your code) of the number of bits you are using. For example, write something like: I implemented **[X]** as my custom predictor. **[Brief description of how it works]**. This predictor uses two structures. The first one is **[variable name in code]** and the second is **[variable name]**. Then for each structure present the math to calculate its size. We will verify its correctness before you receive the bonus points. Adjust the above text as necessary.
 
 You should do most of your development on your own machine. If you face any issues when you submit your project in gradescope, try to run your project in our Docker image to ensure compatibility with the autograder, or post the error message in Piazza.
 
+#### Grading the custom predictor
+
+We will be comparing your custom predictor against a Gshare predictor with 13 bits of global history (--global:13), which is the largest possible Gshare that fits the 16kb budget. We will also be comparing it against a Tournament predictor of about 14kb. This predictor uses 9 bits of global history, 10 bits of local history and 11 PC bits (--tournamet:9:10:11). These are the two predictors you have to outperform.
+
+For each predictor (gshare:13, tournament:9:10:11 and your custom predictor), we will calculate the average missprediction rate accross all 12 of our traces. Out of those 12, six are visible to you and provided along with the starter code to use during development. The remaining six will remain hidden. Your predictor's average missprediction rate must be better (lower) than the other two to get all the points (minus the bonus points for top ranked predictors).
+
 ## Turn-in instructions
 
-**DUE: May 26 2017 - Submissions after 11:59:59 PM are considered late**
+**DUE: Dec 15 2017 - Submissions after 11:59:59 PM are considered late**
 
 Late projects are allowed for at most 3 days after the project due date.  For each day late a 10% grade penalty is automatically attached (e.g. 3 days late = 30% penalty).  After 3 days, missing projects will recieve a zero.  A project is considered late at 12:00:01 AM (Which is 1 second past Midnight).
 
