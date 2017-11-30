@@ -198,9 +198,9 @@ You should do most of your development on your own machine. If you face any issu
 
 #### Grading the custom predictor
 
-We will be comparing your custom predictor against a Gshare predictor with 13 bits of global history (--global:13), which is the largest possible Gshare that fits the 16kb budget. We will also be comparing it against a Tournament predictor of about 14kb. This predictor uses 9 bits of global history, 10 bits of local history and 11 PC bits (--tournamet:9:10:11). These are the two predictors you have to outperform.
+We will be comparing your custom predictor against a Gshare predictor with 13 bits of global history (--global:13), which is the largest possible Gshare that fits the 16kb budget. We will also be comparing it against a Tournament predictor of about 14kb. This predictor uses 9 bits of global history, 10 bits of local history and 10 PC bits (--tournamet:9:10:10). These are the two predictors you have to outperform.
 
-For each predictor (gshare:13, tournament:9:10:11 and your custom predictor), we will calculate the average missprediction rate accross all 12 of our traces. Out of those 12, six are visible to you and provided along with the starter code to use during development. The remaining six will remain hidden. Your predictor's average missprediction rate must be better (lower) than the other two to get all the points (minus the bonus points for top ranked predictors).
+For each predictor (gshare:13, tournament:9:10:10 and your custom predictor), we will calculate the average missprediction rate accross all 12 of our traces. Out of those 12, six are visible to you and provided along with the starter code to use during development. The remaining six will remain hidden. Your predictor's average missprediction rate must be better (lower) than the other two to get all the points (minus the bonus points for top ranked predictors).
 
 ## Turn-in instructions
 
